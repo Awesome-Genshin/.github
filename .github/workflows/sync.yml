@@ -1,0 +1,31 @@
+# .github/workflows/sync.yml
+name: Sync Fork
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '*/30 * * * *'
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: TobKed/github-forks-sync-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          upstream_repository: Grasscutters/Grasscutter
+          target_repository: Awesome-Genshin/Grasscutter
+          upstream_branch: development
+          target_branch: development
+          force: true
+          tags: true
+          
+      - uses: TobKed/github-forks-sync-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          upstream_repository: Dimbreath/GenshinData
+          target_repository: Awesome-Genshin/GenshinData
+          upstream_branch: master
+          target_branch: master
+          force: true
+          tags: true
